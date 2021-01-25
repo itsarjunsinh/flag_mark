@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flag_mark/models/country.dart';
 import 'package:flag_mark/theme.dart';
 import 'package:flag_mark/view_models/home_view_model.dart';
-import 'package:flag_mark/views/home/country_grid.dart';
+import 'package:flag_mark/views/home/all_tab.dart';
+import 'package:flag_mark/views/home/fav_tab.dart';
 import 'package:flag_mark/widgets/loading_widget.dart';
 import 'package:flag_mark/widgets/no_network_widget.dart';
 
@@ -50,7 +50,7 @@ class HomeView extends StatelessWidget {
                         builder: (context, snapshot) {
                           switch (snapshot.connectionState) {
                             case ConnectionState.done:
-                              // Display screens
+                              // Country List ready. Display screens.
                               return TabBarView(children: [
                                 AllTab(countryList: snapshot.data),
                                 FavTab(countryList: _viewModel.favCountryList),
@@ -62,7 +62,6 @@ class HomeView extends StatelessWidget {
                         },
                       );
                     } else {
-                      // TODO: No connection
                       return NoNetworkWidget(
                           retryCallback: _viewModel.loadData);
                     }
@@ -76,45 +75,5 @@ class HomeView extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class AllTab extends StatefulWidget {
-  final List<Country> countryList;
-
-  const AllTab({Key key, this.countryList}) : super(key: key);
-
-  @override
-  _AllTabState createState() => _AllTabState();
-}
-
-class _AllTabState extends State<AllTab> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return CountryGrid(this.widget.countryList);
-  }
-}
-
-class FavTab extends StatefulWidget {
-  final List<Country> countryList;
-
-  const FavTab({Key key, this.countryList}) : super(key: key);
-
-  @override
-  _FavTabState createState() => _FavTabState();
-}
-
-class _FavTabState extends State<FavTab> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return CountryGrid(this.widget.countryList, isFavOnly: true);
   }
 }
