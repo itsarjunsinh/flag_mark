@@ -17,4 +17,4 @@ The app asynchronously checks network connection on startup and fetch country da
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.MD).
+This project is licensed under the [MIT License](LICENSE.md).
