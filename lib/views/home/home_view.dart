@@ -64,7 +64,7 @@ class HomeView extends StatelessWidget {
                     } else {
                       // TODO: No connection
                       return NoNetworkWidget(
-                          retryCallback: _viewModel.loadCountryLists);
+                          retryCallback: _viewModel.loadData);
                     }
                     break;
                   default:

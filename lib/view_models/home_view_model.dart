@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flag_mark/data_sources/country_repository.dart';
 import 'package:flag_mark/data_sources/favorite_repository.dart';
 import 'package:flag_mark/models/country.dart';
@@ -6,17 +8,39 @@ import 'package:flag_mark/util/network_tester.dart';
 
 class HomeViewModel extends ChangeNotifier {
   Future<bool> isNetworkConnected;
-  Future<List<Country>> countryList;
+  StreamSubscription<ConnectivityResult> connectivitySubscription;
 
+  Future<List<Country>> countryList;
   List<Country> favCountryList = [];
   List<String> favCountryCodes = [];
 
   HomeViewModel() {
-    loadCountryLists();
+    loadData();
   }
 
-  void loadCountryLists() async {
+  void loadData() async {
     isNetworkConnected = NetworkTester().isNetworkConnected();
+
+    isNetworkConnected.then((isConnected) {
+      // Subscribe to connectivity change when network not connected.
+      // Unsubscribe if connection established.
+      if (isConnected) {
+        connectivitySubscription?.cancel();
+      } else {
+        connectivitySubscription = Connectivity().onConnectivityChanged.listen(
+          (ConnectivityResult result) {
+            // Auto (re)load data when connected to WiFi or Mobile Data.
+            switch (result) {
+              case ConnectivityResult.none:
+                return;
+              default:
+                loadData();
+                return;
+            }
+          },
+        );
+      }
+    });
     countryList = CountryRepository().getAllCountries();
     _generateFavorites();
   }
@@ -59,5 +83,11 @@ class HomeViewModel extends ChangeNotifier {
     }
     notifyListeners();
     FavoriteRepository().setFavorites(favCountryCodes);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    connectivitySubscription?.cancel();
   }
 }
