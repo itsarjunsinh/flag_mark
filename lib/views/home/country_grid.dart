@@ -22,8 +22,8 @@ class CountryGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         return Card(
           shape: BeveledRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(16),
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(16),
             ),
           ),
           child: Column(children: [
@@ -38,18 +38,18 @@ class CountryGrid extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyles.cardTitle,
+              textAlign: TextAlign.center,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Expanded(
-                    child: new Text(
-                      countryList[index].region,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyles.cardSubtitle,
-                    ),
+                  new Text(
+                    countryList[index].region,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyles.cardSubtitle,
                   ),
                   Consumer<HomeViewModel>(
                     builder: (_, homeViewModel, __) => new IconButton(

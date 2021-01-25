@@ -10,8 +10,18 @@ class ThemeColors {
 }
 
 class TextStyles {
-  static const appTitle = TextStyle(color: ThemeColors.white, fontSize: 30);
-  static const cardTitle = TextStyle(color: ThemeColors.neonCyan, fontSize: 20);
-  static const cardSubtitle =
-      TextStyle(color: ThemeColors.lightGrey, fontSize: 15);
+  static const appTitle = TextStyle(
+    color: ThemeColors.white,
+    fontSize: 30,
+  );
+
+  static const cardTitle = TextStyle(
+    color: ThemeColors.neonCyan,
+    fontSize: 20,
+  );
+
+  static const cardSubtitle = TextStyle(
+    color: ThemeColors.lightGrey,
+    fontSize: 16,
+  );
 }
