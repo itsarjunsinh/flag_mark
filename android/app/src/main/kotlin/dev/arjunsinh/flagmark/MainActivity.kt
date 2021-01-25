@@ -1,4 +1,4 @@
-package com.example.flag_mark
+package dev.arjunsinh.flagmark
 
 import io.flutter.embedding.android.FlutterActivity
 
