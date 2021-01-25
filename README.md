@@ -9,7 +9,7 @@ The home screen displays a list of Country Cards. Users can mark multiple Countr
 <img src="assets/Home-Fav.png" height="350" alt="Favorite Flags Screen">
 </span>
 
-The app asynchronously checks network connection on startup and fetch country data from an external API. In case of no internet connection, it will wait until mobile data or WiFi is turned on and automatically attempt to fetch data.
+The app asynchronously checks network connection on startup and fetches country data from an external API. While offline, it will wait until mobile data or WiFi is turned on and automatically attempt to fetch data.
 
 ## Links
 
