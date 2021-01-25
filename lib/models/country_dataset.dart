@@ -7,14 +7,13 @@ class CountryDataset {
   });
 
   factory CountryDataset.fromJson(Map<String, dynamic> json) => CountryDataset(
-        data: Map.from(json["data"]).map((k, v) =>
-            MapEntry<String, CountryInfo>(k, CountryInfo.fromJson(v))),
+        data: Map.from(json["data"]).map(
+          (k, v) => MapEntry<String, CountryInfo>(
+            k,
+            CountryInfo.fromJson(v),
+          ),
+        ),
       );
-
-  Map<String, dynamic> toJson() => {
-        "data": Map.from(data)
-            .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
-      };
 }
 
 class CountryInfo {
