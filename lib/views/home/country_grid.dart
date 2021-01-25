@@ -22,10 +22,10 @@ class CountryGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         return Card(
           shape: BeveledRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(16),
-            ),
-          ),
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(16),
+              ),
+              side: BorderSide(color: Colors.black54, width: 1)),
           child: Column(children: [
             new Flag(
               countryList[index].code,

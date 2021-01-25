@@ -16,6 +16,12 @@ class NoNetworkWidget extends StatelessWidget {
         padding: const EdgeInsets.all(32.0),
         child: Card(
           color: ThemeColors.lightNavy,
+          elevation: 6,
+          shape: BeveledRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(25),
+              ),
+              side: BorderSide(color: Colors.black54, width: 1)),
           child: Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 36.0),
