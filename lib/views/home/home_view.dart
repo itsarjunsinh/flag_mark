@@ -4,6 +4,8 @@ import 'package:flag_mark/models/country.dart';
 import 'package:flag_mark/theme.dart';
 import 'package:flag_mark/view_models/home_view_model.dart';
 import 'package:flag_mark/views/home/country_grid.dart';
+import 'package:flag_mark/widgets/loading_widget.dart';
+import 'package:flag_mark/widgets/no_network_widget.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -37,18 +39,36 @@ class HomeView extends StatelessWidget {
           create: (_) => HomeViewModel(),
           child: Consumer<HomeViewModel>(
             builder: (_, _viewModel, __) => FutureBuilder(
-              future: _viewModel.countryList,
+              future: _viewModel.isNetworkConnected,
               builder: (context, snapshot) {
-                print(snapshot.connectionState);
                 switch (snapshot.connectionState) {
                   case ConnectionState.done:
-                    return TabBarView(children: [
-                      AllTab(countryList: snapshot.data),
-                      FavTab(countryList: _viewModel.favCountryList),
-                    ]);
+                    // Check if connection works
+                    if (snapshot.data) {
+                      return FutureBuilder(
+                        future: _viewModel.countryList,
+                        builder: (context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.done:
+                              // Display screens
+                              return TabBarView(children: [
+                                AllTab(countryList: snapshot.data),
+                                FavTab(countryList: _viewModel.favCountryList),
+                              ]);
+                              break;
+                            default:
+                              return LoadingWidget();
+                          }
+                        },
+                      );
+                    } else {
+                      // TODO: No connection
+                      return NoNetworkWidget(
+                          retryCallback: _viewModel.loadCountryLists);
+                    }
                     break;
                   default:
-                    return Center(child: CircularProgressIndicator());
+                    return LoadingWidget();
                 }
               },
             ),
