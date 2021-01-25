@@ -31,7 +31,6 @@ class CountryRepository {
         allCountries.add(
           Country(countryCode, countryInfo.country, countryInfo.region),
         ),
-        print(countryInfo.country)
       },
     );
 
